@@ -1,7 +1,7 @@
 
 class Partido 
 {
-    private int numero;
+    private int numero; // PK
     private String nome;
     private String obs;
 
@@ -14,34 +14,34 @@ class Partido
 
     //
 
-    public setNumero(int n)
+    public void setNumero(int n)
     {
         if(n != 0) this.numero = n;
     }
 
-    public setNome(String nome)
+    public void setNome(String nome)
     {
         this.nome = nome;
     }
 
-    public setObs(String obs)
+    public void setObs(String obs)
     {
         this.obs = obs;
     }
 
     //
 
-    public getNumero()
+    public int getNumero()
     {
         return this.numero;
     }
 
-    public getNome()
+    public String getNome()
     {
         return this.nome;
     }
 
-    public getObs()
+    public String getObs()
     {
         return this.obs;
     }

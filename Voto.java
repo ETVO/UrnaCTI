@@ -1,8 +1,9 @@
+import java.text.DateFormat;
 
 class Voto 
 {
-    private long id_voto;
-    private int n_candidato;
+    private long id_voto; // PK
+    private int n_candidato; // FK
     private String momento;
 
     public Voto()
@@ -12,37 +13,55 @@ class Voto
         momento = "";
     }
 
+    public Voto(long id_voto, int n_candidato, String momento)
+    {
+        setVoto(id_voto, n_candidato, momento);
+    }
+
+    public void setVoto(long id_voto, int n_candidato, String momento)
+    {
+        setId_Voto(id_voto);
+        setN_Candidato(n_candidato);
+        setMomento(momento);
+    }
+
     //
 
-    public setId_Voto(int n)
+    public void setId_Voto(long n)
     {
         if(n != 0) this.id_voto = n;
     }
 
-    public setN_Candidato(int n)
+    public void setN_Candidato(int n)
     {
         if(n != 0) this.n_candidato = n;
     }
 
-    public setMomento(String momento)
+    public vpid setMomento(String momento)
     {
         this.momento = momento;
     }
 
     //
 
-    public setId_Voto(int n)
+    public long getId_Voto()
     {
-        if(n != 0) this.id_voto = n;
+        return this.id_voto;
     }
 
-    public setN_Candidato(int n)
+    public int getN_Candidato()
     {
-        if(n != 0) this.n_candidato = n;
+        return this.n_candidato;
     }
 
-    public setMomento(String momento)
+    public String getMomento()
     {
-        this.momento = momento;
+        return this.momento;
+    }
+
+    public String getMomentoDate()
+    {
+        DateFormat format = new DateFormatter();
+        return format.parse(this.momento).toString();
     }
 }
