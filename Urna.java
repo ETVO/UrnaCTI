@@ -17,6 +17,7 @@ public class Urna extends JFrame implements ActionListener, MenuListener{
     private JLabel txtTitle, txtDesc;
     private Font font;
 
+    private Sobre sobre;
 
     public Urna() {
         super("Urna Eletronica");
@@ -89,7 +90,7 @@ public class Urna extends JFrame implements ActionListener, MenuListener{
         pTitle.add(txtTitle);
         // pTitle.setBackground(Color.RED);
         
-
+        
         font = new Font("Arial", Font.ITALIC, 15);
         JPanel pDesc = new JPanel(new FlowLayout());
         
@@ -112,22 +113,30 @@ public class Urna extends JFrame implements ActionListener, MenuListener{
     }
 
     public void actionPerformed(ActionEvent e){
+        if(e.getSource() == iCadCandidato)
+        {
+            new CadCandidato();
+        }
     } 
 
     public void menuSelected(MenuEvent e) {
         if(e.getSource()==mVotar)
         {
-            if(JOptionPane.showConfirmDialog (null, "Iniciar sessao de votacao?",QUESTION_MESSAGE,dialogButton)
-            == JOptionPane.YES_OPTION){
-        		new Voto
-			}
+            JOptionPane.showConfirmDialog(null, "Deseja iniciar a sessao de votacao?", "Votar",
+        JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
         }
         else if(e.getSource()==mExit)
         {
-            if(JOptionPane.showConfirmDialog (null, "Deseja realmente sair?",WARNING_MESSAGE,dialogButton) 
+            if(JOptionPane.showConfirmDialog(null, "Deseja realmente sair?", "Tem certeza?",
+            JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) 
             == JOptionPane.YES_OPTION){
         		System.exit(0);
 			}
+        }
+        else if(e.getSource() == mSobre)
+        {
+            sobre = new Sobre();
         }
     }
     public void menuDeselected(MenuEvent e) {

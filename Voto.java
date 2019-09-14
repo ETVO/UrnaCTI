@@ -37,7 +37,7 @@ class Voto
         if(n != 0) this.n_candidato = n;
     }
 
-    public vpid setMomento(String momento)
+    public void setMomento(String momento)
     {
         this.momento = momento;
     }
@@ -61,7 +61,7 @@ class Voto
 
     public String getMomentoDate()
     {
-        DateFormat format = new DateFormatter();
-        return format.parse(this.momento).toString();
+        DateFormat df = DateFormat.getDateInstance();
+        return df.parse(this.momento).toString();
     }
 }

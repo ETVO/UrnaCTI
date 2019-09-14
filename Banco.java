@@ -17,7 +17,7 @@ public class Banco {
 	private PreparedStatement ps;
 	private ResultSet rs;
 	
-	public BancoSQL(){
+	public Banco(){
 		con=null;
 		url="jdbc:postgresql://localhost:5432/bancocti"; // url para conexão (postgres, servidor e banco)
 		user="postgres";
@@ -54,13 +54,13 @@ public class Banco {
 	}
 	
 	// GET E SET DOS OBJETOS LOCAIS bCandidato, bPartido, bVoto -------------------------
-	public String getCandidato() { return candidato;}
+	public Candidato getCandidato() { return candidato;}
 	public void setCandidato(Candidato candidato) { this.candidato = candidato; }
 	
-	public String getPartido() { return partido;}
+	public Partido getPartido() { return partido;}
     public void setPartido(Partido partido) { this.partido = partido; }
     
-	public String getVoto() { return voto;}
+	public Voto getVoto() { return voto;}
 	public void setVoto(Voto voto) { this.voto = voto; }
     
     
@@ -109,10 +109,10 @@ public class Banco {
         try {
             ps = con.prepareStatement(sql);// id_voto, n_candidato, momento
             
-            i = 1;
+            int i = 1;
             if(voto.getId_Voto() != 0)
                 ps.setLong(i++, voto.getId_Voto());
-            ps.setInt(i, voto.getNome());
+            ps.setInt(i, voto.getN_Candidato());
 
             ps.execute();
             ps.close();
