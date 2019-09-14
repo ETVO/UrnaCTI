@@ -17,11 +17,11 @@ public class CadCandidato extends JFrame implements ActionListener {
 	private JLabel lblNumero;
 	private JLabel lblNome;
 	private JLabel lblN_Partido;
-	private JLabel Cargo;
-	private JTextField txtNumero;
-	private JTextField txtNome;
-	private JTextField txtN_Partido;
-	private JComboBox cmbCargo;
+	private JLabel lblCargo;
+	private JTextField txtNumero; private int wtxtNumero = 60;
+	private JTextField txtNome; private int wtxtNome = 150;
+	private JTextField txtN_Partido; private int wtxtN_Partido = 40;
+	private JComboBox cmbCargo; private int wcmbCargo = 150;
 	
 	// BOTÕES DE OPERAÇÕES
 	private JButton btnIncluir;
@@ -35,7 +35,19 @@ public class CadCandidato extends JFrame implements ActionListener {
 	private Banco banco;
 	
 	// MONITORAMENTO DA LINHA SELECIONADA
-	private int linalt=0; 
+	private int linalt=0;
+	
+	//Font
+	private Font font;
+	private Font flbl = new Font("Arial", Font.PLAIN, 13);
+	private Font fbtn = new Font("Arial", Font.PLAIN, 13);
+	private Font ftxt = new Font("Arial", Font.PLAIN, 14);
+
+	// layout
+	private int wbtn = 100; private int hbtn = 30;
+	private int wtable = 440; private int htable = 190;  
+	private int wlbl = 60; private int hlbl = 15; 
+	private int wtxt = 50; private int htxt = 20;  
 	
 	CadCandidato()
 	{
@@ -44,16 +56,8 @@ public class CadCandidato extends JFrame implements ActionListener {
 		
 		this.getContentPane().setBackground(Color.GRAY);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBounds(200,100,700,500);
+		setSize(610,400);
 		setLayout(null);
-		
-		// Criando dos Objetos na Janela
-		btnSair = new JButton("Sair");
-		btnSair.setToolTipText("Aperte para sair");
-		btnSair.addActionListener(this);
-		btnSair.setBounds(260, 320, 100, 30);
-		add(btnSair);
-
 
 		modelo = new DefaultTableModel()
 		{
@@ -71,30 +75,47 @@ public class CadCandidato extends JFrame implements ActionListener {
 		tabela.getColumnModel().getColumn(0).setMaxWidth(80);
 		tabela.getColumnModel().getColumn(0).setMinWidth(80);
 		
+		int x = 20, y = 10;
+		
 		grade = new JScrollPane(tabela);
-		grade.setBounds(10,10,450,190);
+		grade.setBounds(x, y, wtable, htable);
 		grade.setViewportView(tabela);
 		add(grade);
-		
 
-		lblNumero = new JLabel("Numero:");
-		lblNumero.setBounds(10, 220, 60, 15);
+		x += 0;
+		y += 15 + htable;
+
+		lblNumero = new JLabel("Numero");
+		lblNumero.setBounds(x, y, wlbl, hlbl);
+		lblNumero.setFont(flbl);
 		add(lblNumero);
 
-		lblNome = new JLabel("Nome:");
-		lblNome.setBounds(10, 250, 60, 15);
-		add(lblNome);
-		
+		x += 0;
+		y += 5 + hlbl;
 
 		txtNumero  = new JTextField();
 		txtNumero.setEnabled(false);
-		txtNumero.setBounds(80, 220, 100, 20);
+		txtNumero.setBounds(x, y, wtxtNumero, htxt);
+		txtNumero.setFont(ftxt);
 		add(txtNumero);
 
-		txtNome = new JTextField();
-		txtNome.setEnabled(false);
-		txtNome.setBounds(80, 250, 220, 20);
-		add(txtNome);
+		x += 15 + wtxtNumero;
+		y -= 5 + hlbl;
+
+		lblCargo = new JLabel("Cargo");
+		lblCargo.setBounds(x, y, wlbl, hlbl);
+		lblCargo.setFont(flbl);
+		add(lblCargo);
+
+		x += 0;
+		y += 5 + hlbl;
+
+		cmbCargo  = new JComboBox<>();
+		cmbCargo.addItem("Deputado Federal");
+		cmbCargo.setSelectedIndex(-1);
+		cmbCargo.setBounds(x, y, wcmbCargo, htxt);
+		cmbCargo.setFont(ftxt);
+		add(cmbCargo);
 
 	/* 
 		NÃO SERA USADO NESSE CASO
@@ -108,38 +129,75 @@ public class CadCandidato extends JFrame implements ActionListener {
 		add(txtturma);
 	*/
 
+		x = 10;
+		y = 20 + wtable + 20;
 
 		btnIncluir = new JButton("Incluir");
-		btnIncluir.setBounds(480, 50, 100, 30);
+		btnIncluir.setBounds(y, x, wbtn, hbtn);
 		btnIncluir.addActionListener(this);
+		btnIncluir.setFont(fbtn);
 		add(btnIncluir);
 
+		x += wbtn/2;
+		y += 0;
+
 		btnAlterar = new JButton("Alterar");
-		btnAlterar.setBounds(480, 90, 100, 30);
+		btnAlterar.setBounds(y, x, wbtn, hbtn);
 		btnAlterar.addActionListener(this);
+		btnAlterar.setFont(fbtn);
 		add(btnAlterar);
 
+		x += wbtn/2;
+		y += 0;
+
 		btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(480, 140, 100, 30);
+		btnExcluir.setBounds(y, x, wbtn, hbtn);
 		btnExcluir.addActionListener(this);
+		btnExcluir.setFont(fbtn);
 		add(btnExcluir);
+
+		x += wbtn/2;
+		y += 0;
 
 		//SÓ APARECEM QUANDO O USER ESTA INCLUINDO OU ALTERANDO ALGUM REGISTRO
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(this);
-		btnSalvar.setBounds(480, 190, 100, 30);
+		btnSalvar.setBounds(y, x, wbtn, hbtn);
 		btnSalvar.setEnabled(false);
+		btnSalvar.setFont(fbtn);
 		add(btnSalvar);
 
+		x += wbtn/2;
+		y += 0;
+
 		btnCancela = new JButton("Cancelar");
-		btnCancela.setBounds(480, 250, 100, 30);
+		btnCancela.setBounds(y, x, wbtn, hbtn);
 		btnCancela.setEnabled(false);
 		btnCancela.addActionListener(this);
+		btnCancela.setFont(fbtn);
 		add(btnCancela);
+
+		x += wbtn/2;
+		y += -10;
+		
+		font = new Font("Arial", Font.BOLD, 15);
+
+		btnSair = new JButton("Sair");
+		btnSair.setToolTipText("Aperte para sair");
+		btnSair.addActionListener(this);
+		btnSair.setBounds(y, x, wbtn+10, hbtn+10);
+		btnSair.setFont(font);
+		add(btnSair);
 		
 		// leBanco();
 		
-		setVisible(true);
+		setLocationRelativeTo(null);
+        setVisible(true);
+	}
+
+	public static void main(String args[])
+	{
+		new CadCandidato();
 	}
 	
 	// public void leBanco() { //PREENCHER A TABELA COM TODOS OS REGISTROS ENCONTRADOS

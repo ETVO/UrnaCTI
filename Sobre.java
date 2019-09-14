@@ -7,7 +7,7 @@ import java.awt.event.*;
 import java.awt.Image;
 import java.io.*;
 
-public class Sobre extends JFrame implements ActionListener {
+public class Sobre extends JDialog implements ActionListener {
 
     JLabel lbUrna,  lbImg1, lbImg2;
     JLabel lbTitle, lbDesc, lbDesc1, lbDesc2;
@@ -16,11 +16,13 @@ public class Sobre extends JFrame implements ActionListener {
 
     public Sobre()
     {
-        super("Sobre - Urna Eletronica CTI");
+        super();
+        setTitle("Sobre - Urna Eletronica CTI");
+        
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLocation(420, 90);
-    	setSize(500, 500);
+        setSize(500, 500);
     	setLayout(null);
+        setModal(true);
     	getContentPane().setBackground(new Color(240, 240, 240));
 
         ImageIcon imag = new ImageIcon("imgs/urna.png");
@@ -71,7 +73,8 @@ public class Sobre extends JFrame implements ActionListener {
         btVolta.addActionListener(this);
         btVolta.setBounds(40, 400, 80, 30);
         add(btVolta);
-
+        
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 

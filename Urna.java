@@ -23,8 +23,7 @@ public class Urna extends JFrame implements ActionListener, MenuListener{
         super("Urna Eletronica");
         
     	setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocation(420, 90);
-    	setSize(550, 550);
+        setSize(550, 550);
     	setLayout(new GridBagLayout());
     	getContentPane().setBackground(new Color(240, 240, 240));
 
@@ -104,7 +103,8 @@ public class Urna extends JFrame implements ActionListener, MenuListener{
         
 
         add(box, new GridBagConstraints());
-        
+
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
