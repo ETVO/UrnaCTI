@@ -61,7 +61,12 @@ class Voto
 
     public String getMomentoDate()
     {
-        DateFormat df = DateFormat.getDateInstance();
-        return df.parse(this.momento).toString();
+        try {
+            DateFormat df = DateFormat.getDateInstance();
+            return df.parse(this.momento).toString();
+        }
+        catch (Exception e) {
+            return this.momento;
+        }
     }
 }

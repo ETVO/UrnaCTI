@@ -13,7 +13,6 @@ public class Banco {
 	private String sql;
 	
 	// Manipulação de tabelas e dados
-	private String mat, nome;
 	private PreparedStatement ps;
 	private ResultSet rs;
 	
@@ -24,6 +23,10 @@ public class Banco {
 		senha="postgres";
 		driver="org.postgresql.Driver";
 		sql=""; // string para armazenar comandos sql
+
+		candidato = new Candidato();
+		partido = new Partido();
+		voto = new Voto();
 	}
 	
 	public void conectar()
@@ -84,13 +87,12 @@ public class Banco {
     }
 
     public void inserirPartido() {
-		sql = "INSERT INTO urna.partido VALUES(?, ?, ?)";
+		sql = "INSERT INTO urna.partido VALUES(?, ?)";
         
         try {
             ps = con.prepareStatement(sql);// numero, nome, obs
             ps.setInt(1, partido.getNumero());
             ps.setString(2, partido.getNome());
-            ps.setString(3, partido.getObs());
             ps.execute();
             ps.close();
         }
@@ -143,12 +145,11 @@ public class Banco {
 	}
     
     public void alterarPartido(){
-		sql = "UPDATE urna.partido SET nome = ?, obs = ? WHERE numero = ?";
+		sql = "UPDATE urna.partido SET nome = ? WHERE numero = ?";
         
         try {
             ps = con.prepareStatement(sql);// nome, obs, numero 
             ps.setString(1, partido.getNome());
-            ps.setString(2, partido.getObs());
             ps.setInt(3, partido.getNumero());
             ps.execute();
             ps.close();
@@ -220,11 +221,11 @@ public class Banco {
 				candidato.setN_Partido(rs.getInt("n_partido"));
 				candidato.setNome(rs.getString("nome"));
 				candidato.setCargo(rs.getInt("cargo"));
-				
+
                 dados.add(candidato.getNumero());
                 dados.add(candidato.getN_Partido());
                 dados.add(candidato.getNome());
-                dados.add(candidato.getCargoString());
+                dados.add(candidato.getCargo());
 			}
 			
 			ps.close();
@@ -247,14 +248,12 @@ public class Banco {
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery(); // tabela de dados retornada pelo banco (result set)
 			
-			while(rs.next()){// numero, nome, obs
+			while(rs.next()){// numero, nome
 				partido.setNumero(rs.getInt("numero"));
 				partido.setNome(rs.getString("nome"));
-				partido.setObs(rs.getString("obs"));
 				
                 dados.add(partido.getNumero());
                 dados.add(partido.getNome());
-                dados.add(partido.getObs());
 			}
 			
 			ps.close();
@@ -337,13 +336,12 @@ public class Banco {
 			
 			rs = ps.executeQuery();
 			
-			if(rs.next())// numero, nome, obs
+			if(rs.next())// numero, nome
 			{
 				volta = true;
 				
 				partido.setNumero(rs.getInt("numero"));
 				partido.setNome(rs.getString("nome"));
-				partido.setObs(rs.getString("obs"));
 			}
 			
 			ps.close();

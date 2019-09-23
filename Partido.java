@@ -3,13 +3,11 @@ class Partido
 {
     private int numero; // PK
     private String nome;
-    private String obs;
 
     public Partido()
     {
         numero = 0;
         nome = "";
-        obs = "";
     }
 
     //
@@ -24,11 +22,6 @@ class Partido
         this.nome = nome;
     }
 
-    public void setObs(String obs)
-    {
-        this.obs = obs;
-    }
-
     //
 
     public int getNumero()
@@ -39,10 +32,5 @@ class Partido
     public String getNome()
     {
         return this.nome;
-    }
-
-    public String getObs()
-    {
-        return this.obs;
     }
 }

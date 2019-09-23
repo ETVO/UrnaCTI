@@ -32,22 +32,25 @@ public class Urna extends JFrame implements ActionListener, MenuListener{
         bar = new JMenuBar();
         setJMenuBar(bar);
 
+        // votar
         mVotar = new JMenu("Votar");
         mVotar.setMnemonic('V');
         mVotar.addMenuListener(this);
 
+        // cadastro
         mCadastro = new JMenu("Cadastro");
         mCadastro.setMnemonic('C');
         mCadastro.addMenuListener(this);
+
+        iCadPartido = new JMenuItem("Partido");
+        iCadPartido.addActionListener(this);
+        mCadastro.add(iCadPartido);
         
         iCadCandidato = new JMenuItem("Candidato");
         iCadCandidato.addActionListener(this);
         mCadastro.add(iCadCandidato);
-        
-        iCadPartido = new JMenuItem("Partido");
-        iCadPartido.addActionListener(this);
-        mCadastro.add(iCadPartido);
 
+        // relatorio
         mRelatorio = new JMenu("Relatorio");
         mRelatorio.setMnemonic('R');
         mRelatorio.addMenuListener(this);
@@ -63,11 +66,13 @@ public class Urna extends JFrame implements ActionListener, MenuListener{
         iRelPartidos = new JMenuItem("Partidos");
         iRelPartidos.addActionListener(this);
         mRelatorio.add(iRelPartidos);
-
+        
+        // sobre
         mSobre = new JMenu("Sobre");
         mSobre.setMnemonic('S');
         mSobre.addMenuListener(this);
 
+        // exit
         mExit = new JMenu("Exit");
         mExit.setMnemonic('E');
         mExit.addMenuListener(this);
@@ -116,6 +121,10 @@ public class Urna extends JFrame implements ActionListener, MenuListener{
         if(e.getSource() == iCadCandidato)
         {
             new CadCandidato();
+        }
+        else if (e.getSource() == iCadPartido)
+        {
+            new CadPartido();
         }
     } 
 
