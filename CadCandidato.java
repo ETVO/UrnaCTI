@@ -5,7 +5,7 @@ import javax.swing.table.*;//default table model
 import java.io.*;//file 
 import java.util.*;//ArrayList
 
-public class CadCandidato extends JFrame implements ActionListener {
+public class CadCandidato extends JFrame implements ActionListener, FocusListener {
 	
 	// modelo -> tabela -> grade
 	// VISUALIZAÇÃO DOS DADOS
@@ -18,6 +18,8 @@ public class CadCandidato extends JFrame implements ActionListener {
 	private JLabel lblNome;
 	private JLabel lblN_Partido;
 	private JLabel lblCargo;
+	private JLabel lblNovoPartido;
+	private JLabel lblRecarregar;
 	private JTextField txtNumero; private int wtxtNumero = 60;
 	private JTextField txtNome; private int wtxtNome = 150;
 	private JTextField txtN_Partido; private int wtxtN_Partido = 40;
@@ -42,21 +44,27 @@ public class CadCandidato extends JFrame implements ActionListener {
 	private Font flbl = new Font("Arial", Font.PLAIN, 13);
 	private Font fbtn = new Font("Arial", Font.PLAIN, 13);
 	private Font ftxt = new Font("Arial", Font.PLAIN, 14);
+	private Font flink = new Font("Arial", Font.PLAIN, 12);
+	private Font fbold = new Font("Arial", Font.BOLD, 13);
 
 	// layout
 	private int wbtn = 100; private int hbtn = 30;
 	private int wtable = 440; private int htable = 190;  
 	private int wlbl = 60; private int hlbl = 15; 
 	private int wtxt = 50; private int htxt = 20;  
+	private int wframe = 610; private int hframe = 400;
+
+	Candidato candidato;
 	
 	CadCandidato()
 	{
 		super("Cadastro de Candidato");
 		banco = new Banco();
+		candidato = new Candidato();
 		
 		this.getContentPane().setBackground(Color.GRAY);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setSize(610,400);
+		setSize(wframe,hframe);
 		setLayout(null);
 
 		modelo = new DefaultTableModel()
@@ -160,6 +168,33 @@ public class CadCandidato extends JFrame implements ActionListener {
 		txtNome.setFont(ftxt);
 		add(txtNome);
 
+		x -= 15 + wtxtNumero;
+		y += 10 + hlbl;
+
+		lblNovoPartido = new JLabel("<html><u>Adicionar partido</u></html>");
+		lblNovoPartido.setBounds(x, y, wtxtNome, hlbl);
+		lblNovoPartido.setFont(flink);
+		lblNovoPartido.setForeground(Color.blue);
+		lblNovoPartido.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				new CadPartido();	
+			}
+		 });
+		add(lblNovoPartido);
+
+		x = 15 + wframe - wtxtNome;
+		y += 0;
+
+		lblRecarregar = new JLabel("<html><u>RECARREGAR</u></html>");
+		lblRecarregar.setBounds(x, y, wtxtNome, hlbl);
+		lblRecarregar.setFont(fbold);
+		lblRecarregar.setForeground(Color.blue);
+		lblRecarregar.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				leBanco();	
+			}
+		 });
+		add(lblRecarregar);
 		/* BOTÕES
 		 *
 		 */
@@ -227,7 +262,8 @@ public class CadCandidato extends JFrame implements ActionListener {
 		leBanco();
 
 		ativaCampos(false);
-		
+
+		addFocusListener(this);
 		setLocationRelativeTo(null);
         setVisible(true);
 	}
@@ -239,11 +275,10 @@ public class CadCandidato extends JFrame implements ActionListener {
 	
 	public void leBanco() { //PREENCHER A TABELA COM TODOS OS REGISTROS ENCONTRADOS
 		ArrayList tudo = null;
-		Candidato candidato;
+		modelo.setRowCount(0);
 		
 		try {
 			tudo = new ArrayList();
-			candidato = new Candidato();
 		
 			banco.conectar();
 			tudo = banco.tudoCandidato(); // numero, n_partido, nome, cargo
@@ -303,20 +338,20 @@ public class CadCandidato extends JFrame implements ActionListener {
 					tabela.setRowSelectionInterval(0,0); // LIMPAR A SELECAO
 				return;
 			}
-
-			Candidato candidato = new Candidato();
 			
-			candidato.setNumero(Integer.parseInt(""+tabela.getValueAt(linalt, 0)));
-			candidato.setN_Partido(Integer.parseInt(""+tabela.getValueAt(linalt, 1)));
-			candidato.setNome(""+tabela.getValueAt(linalt, 2));
-			candidato.setCargoString(""+tabela.getValueAt(linalt, 0));
+			int i = 0;
+			candidato.setNumero(Integer.parseInt(""+tabela.getValueAt(linalt, i++)));
+			candidato.setNumPrev(candidato.getNumero());
+			candidato.setN_Partido(Integer.parseInt(""+tabela.getValueAt(linalt, i++)));
+			candidato.setNome(""+tabela.getValueAt(linalt, i++));
+			candidato.setCargoString(""+tabela.getValueAt(linalt, i));
 			
 			ativaCampos(true);
 			
 			txtNumero.setText("" + candidato.getNumero());
-			cmbCargo.setSelectedIndex(candidato.getCargo());
 			txtN_Partido.setText("" + candidato.getN_Partido());
 			txtNome.setText(candidato.getNome());
+			cmbCargo.setSelectedIndex(candidato.getCargo());
 			
 			txtNumero.grabFocus();
 			
@@ -365,9 +400,9 @@ public class CadCandidato extends JFrame implements ActionListener {
 				return; 
 			}
 			
-			if(txtNumero.getText().length()>6)//
+			if(txtNumero.getText().length()>5)//
 			{
-				JOptionPane.showMessageDialog(null,"Numero deve ter 6 ou menos algarismos!");
+				JOptionPane.showMessageDialog(null,"Numero deve ter 5 ou menos algarismos!");
 				txtNumero.setText("");
 				txtNumero.grabFocus();
 				return;
@@ -418,8 +453,6 @@ public class CadCandidato extends JFrame implements ActionListener {
 			}
 			
 			ativaCampos(false);
-			
-			Candidato candidato = new Candidato();
 
 			candidato.setNumero(Integer.parseInt(txtNumero.getText()));
 			candidato.setN_Partido(Integer.parseInt(txtN_Partido.getText()));
@@ -455,10 +488,11 @@ public class CadCandidato extends JFrame implements ActionListener {
 				banco.desconectar();
 			}
 			else{ // USUARIO ESTA ALTERANDO REGISTRO JA EXISTENTE
-				tabela.setValueAt(String.valueOf(candidato.getNumero()),linalt,0);
-				tabela.setValueAt(String.valueOf(candidato.getN_Partido()),linalt,1);
-				tabela.setValueAt(candidato.getNome(),linalt,1);
-				tabela.setValueAt(candidato.getCargoString(),linalt,1);
+				int i = 0;
+				tabela.setValueAt(String.valueOf(candidato.getNumero()),linalt,i++);
+				tabela.setValueAt(String.valueOf(candidato.getN_Partido()),linalt,i++);
+				tabela.setValueAt(candidato.getNome(),linalt,i++);
+				tabela.setValueAt(candidato.getCargoString(),linalt,i++);
 				
 				banco.conectar();
 				banco.alterarCandidato();
@@ -479,6 +513,23 @@ public class CadCandidato extends JFrame implements ActionListener {
 				tabela.setRowSelectionInterval(0,0); // LIMPAR A SELECAO
 			return;
 		}
+
+		if(ae.getSource() == lblNovoPartido)
+		{			
+            new CadPartido();
+
+			return;
+		}
+	}
+
+	public void focusGained(FocusEvent fe)
+	{
+		leBanco();
+	}
+
+	public void focusLost(FocusEvent fe)
+	{
+		leBanco();
 	}
 	
 	public void ativaCampos(boolean ativado) // MÉTODO UTILIZADO PARA ATIVAR/DESATIVAR CAMPOS PARA INCLUSAO OU ALTERAÇÃO

@@ -7,6 +7,7 @@ import java.util.*;//ArrayList
 
 public class CadPartido extends JFrame implements ActionListener {
 	
+	Partido partido;
 	// modelo -> tabela -> grade
 	// VISUALIZAÇÃO DOS DADOS
 	private DefaultTableModel modelo;
@@ -49,6 +50,7 @@ public class CadPartido extends JFrame implements ActionListener {
 	{
 		super("Cadastro de Partido");
 		banco = new Banco();
+		partido = new Partido();
 		
 		this.getContentPane().setBackground(Color.GRAY);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -192,11 +194,9 @@ public class CadPartido extends JFrame implements ActionListener {
 	
 	public void leBanco() { //PREENCHER A TABELA COM TODOS OS REGISTROS ENCONTRADOS
 		ArrayList tudo = null;
-		Partido partido;
 		
 		try {
 			tudo = new ArrayList();
-			partido = new Partido();
 		
 			banco.conectar();
 			tudo = banco.tudoPartido(); // numero, nome
@@ -249,10 +249,9 @@ public class CadPartido extends JFrame implements ActionListener {
 					tabela.setRowSelectionInterval(0,0); // LIMPAR A SELECAO
 				return;
 			}
-
-			Partido partido = new Partido();
 			
 			partido.setNumero(Integer.parseInt(""+tabela.getValueAt(linalt, 0)));
+			partido.setNumPrev(partido.getNumero());
 			partido.setNome(""+tabela.getValueAt(linalt, 1));
 			
 			ativaCampos(true);
@@ -333,8 +332,6 @@ public class CadPartido extends JFrame implements ActionListener {
 			}
 			
 			ativaCampos(false);
-			
-			Partido partido = new Partido();
 
 			partido.setNumero(Integer.parseInt(txtNumero.getText()));
 			partido.setNome(txtNome.getText());

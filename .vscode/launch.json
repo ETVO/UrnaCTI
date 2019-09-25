@@ -1,0 +1,32 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CadCandidato",
+            "request": "launch",
+            "mainClass": "CadCandidato"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CadPartido",
+            "request": "launch",
+            "mainClass": "CadPartido"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Urna",
+            "request": "launch",
+            "mainClass": "Urna"
+        }
+    ]
+}

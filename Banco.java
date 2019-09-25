@@ -127,14 +127,16 @@ public class Banco {
 
     // MÉTODOS DE ALTERAÇÃO NO BANCO --------------------------------------------------
     public void alterarCandidato(){
-		sql = "UPDATE urna.candidato SET n_partido = ?, nome = ?, cargo = ? WHERE numero = ?";
+		sql = "UPDATE urna.candidato SET numero = ?, n_partido = ?, nome = ?, cargo = ? WHERE numero = ?";
         
         try {
+			int i = 1;
             ps = con.prepareStatement(sql);// n_partido, nome, cargo, numero
-            ps.setInt(1, candidato.getN_Partido());
-            ps.setString(2, candidato.getNome());
-            ps.setInt(3, candidato.getCargo());
-            ps.setInt(4, candidato.getNumero());
+            ps.setInt(i++, candidato.getNumero());
+            ps.setInt(i++, candidato.getN_Partido());
+            ps.setString(i++, candidato.getNome());
+            ps.setInt(i++, candidato.getCargo());
+            ps.setInt(i++, candidato.getNumPrev());
             ps.execute();
             ps.close();
         }
@@ -145,19 +147,20 @@ public class Banco {
 	}
     
     public void alterarPartido(){
-		sql = "UPDATE urna.partido SET nome = ? WHERE numero = ?";
+		sql = "UPDATE urna.partido SET numero = ?, nome = ? WHERE numero = ?";
         
         try {
-            ps = con.prepareStatement(sql);// nome, obs, numero 
-            ps.setString(1, partido.getNome());
-            ps.setInt(3, partido.getNumero());
+			ps = con.prepareStatement(sql);// nome, numero 
+			ps.setInt(1, partido.getNumero());
+            ps.setString(2, partido.getNome());
+            ps.setInt(3, partido.getNumPrev());
             ps.execute();
             ps.close();
         }
         catch(Exception e)
         {
             JOptionPane.showMessageDialog(null,"Erro ao alterar partido "+partido.getNome()+": " + e.getMessage());
-        }
+		}
     }
     
     
@@ -309,7 +312,7 @@ public class Banco {
 			if(rs.next())// numero, n_partido, nome, cargo
 			{
 				volta = true;
-				
+
 				candidato.setNumero(rs.getInt("numero"));
 				candidato.setN_Partido(rs.getInt("n_partido"));
 				candidato.setNome(rs.getString("nome"));
@@ -320,7 +323,7 @@ public class Banco {
 		}
 		catch(Exception e)
 		{
-			JOptionPane.showMessageDialog(null,"Erro em procurar PK "+pk+" de candidato: " + e.getMessage());
+			JOptionPane.showMessageDialog(null,"Erro em procurar PK "+pk+" de candidato: " + e);
 		}
 		
 		return volta;

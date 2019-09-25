@@ -13,11 +13,12 @@ public class Urna extends JFrame implements ActionListener, MenuListener{
     
     private JMenuBar bar;
     private JMenu mVotar, mCadastro,mRelatorio,mSobre,mExit;
-    private JMenuItem iCadCandidato, iCadPartido, iRelVotos, iRelPartidos, iRelCandidatos;
+    private JMenuItem iCadCandidato, iCadPartido, iRelVotos;
     private JLabel txtTitle, txtDesc;
     private Font font;
 
     private Sobre sobre;
+    private Sessao sessao;
 
     public Urna() {
         super("Urna Eletronica");
@@ -58,14 +59,6 @@ public class Urna extends JFrame implements ActionListener, MenuListener{
         iRelVotos = new JMenuItem("Votos");
         iRelVotos.addActionListener(this);
         mRelatorio.add(iRelVotos);
-        
-        iRelCandidatos = new JMenuItem("Candidatos");
-        iRelCandidatos.addActionListener(this);
-        mRelatorio.add(iRelCandidatos);
-        
-        iRelPartidos = new JMenuItem("Partidos");
-        iRelPartidos.addActionListener(this);
-        mRelatorio.add(iRelPartidos);
         
         // sobre
         mSobre = new JMenu("Sobre");
@@ -131,9 +124,11 @@ public class Urna extends JFrame implements ActionListener, MenuListener{
     public void menuSelected(MenuEvent e) {
         if(e.getSource()==mVotar)
         {
-            JOptionPane.showConfirmDialog(null, "Deseja iniciar a sessao de votacao?", "Votar",
-        JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-
+            if(JOptionPane.showConfirmDialog(null, "Deseja iniciar a sessao de votacao?", "Votar",
+        JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
+            {
+                sessao = new Sessao();
+            }
         }
         else if(e.getSource()==mExit)
         {
