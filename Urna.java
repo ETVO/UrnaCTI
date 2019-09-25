@@ -144,6 +144,9 @@ public class Urna extends JFrame implements ActionListener, MenuListener{
         }
     }
     public void menuDeselected(MenuEvent e) {
+        // if(e.getSource() == mVotar) 
+        // {
+        // }
     }
     public void menuCanceled(MenuEvent e) {
     }

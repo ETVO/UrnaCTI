@@ -7,7 +7,7 @@ import javax.swing.table.*;//default table model
 import java.io.*;//file 
 import java.util.*;//ArrayList
 
-public class Sessao extends JFrame implements ActionListener{
+public class Sessao extends JDialog implements ActionListener{
 	
 	private JLabel lblCandidato, lblPartido, lblNumero, lblTitle;
     private JButton btnSair, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn0, btnVotar, btnCancelar;
@@ -47,8 +47,9 @@ public class Sessao extends JFrame implements ActionListener{
 
     public Sessao() 
     {
-        super("Sessao de voto");
-        
+        super();
+        this.setTitle("Sessao de voto");
+
         banco = new Banco();
         candidato = new Candidato(); 
         partido = new Partido();
@@ -239,7 +240,9 @@ public class Sessao extends JFrame implements ActionListener{
 		lblPartido.setBounds(x, y, xi - 20 - x, 50);
 		lblPartido.setFont(flblPartido);
         add(lblPartido);
-		
+
+
+		this.setAlwaysOnTop(true);
 		setLocationRelativeTo(null);
         setVisible(true);
 		
