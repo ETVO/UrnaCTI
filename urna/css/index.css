@@ -1,0 +1,60 @@
+html {
+    background: rgba(0, 34, 128, 0.918);
+}
+
+.index {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.indexGrid {
+    margin: auto;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-row-gap: 10px;
+}
+
+.indexContent {
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.8);
+    margin: auto;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.indexContent h3 {
+    font-weight: normal;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.indexContent h1 {
+    margin-top: 0;
+}
+
+.indexBtn {
+    padding: 20px;
+    /* background: rgba(0, 0, 0, 0.2); */
+    margin: auto;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.indexBtn a {
+    color: white;
+    border: solid 1px rgba(0, 0, 0, 0.8);
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+}
+
+.indexBtn a:hover {
+    /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)); */
+    background: rgba(0, 0, 0, 0.6);
+}
