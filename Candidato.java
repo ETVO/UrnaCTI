@@ -2,6 +2,7 @@
 class Candidato 
 {
     private int numero; // PK
+    private int num_prev;
     private int n_partido; // FK
     private String nome;
     private int cargo;
@@ -21,6 +22,11 @@ class Candidato
         if(n != 0) this.numero = n;
     }
 
+    public void setNumPrev(int n)
+    {
+        if(n != 0) this.num_prev = n;
+    }
+
     public void setN_Partido(int n)
     {
         if(n != 0) this.n_partido = n;
@@ -38,15 +44,12 @@ class Candidato
 
     public void setCargoString(String cargo)
     {
-        switch(cargo)
-        {
-            case "Deputado Federal": this.cargo = 0;
-            case "Senador": this.cargo =  1;
-            case "Presidente": this.cargo =  2;
-            case "Deputado Estadual": this.cargo =  3;
-            case "Governador": this.cargo =  4;
-            default: this.cargo =  5;
-        }
+        if("Deputado Federal".equals(cargo)) this.cargo = 0;
+        else if("Senador".equals(cargo)) this.cargo =  1;
+        else if("Presidente".equals(cargo)) this.cargo =  2;
+        else if("Deputado Estadual".equals(cargo)) this.cargo =  3;
+        else if("Governador".equals(cargo)) this.cargo =  4;
+        else this.cargo =  -1;
     }
 
     //
@@ -54,6 +57,11 @@ class Candidato
     public int getNumero()
     {
         return this.numero;
+    }
+
+    public int getNumPrev()
+    {
+        return this.num_prev;
     }
 
     public int getN_Partido()

@@ -2,14 +2,13 @@
 class Partido 
 {
     private int numero; // PK
+    private int num_prev;
     private String nome;
-    private String obs;
 
     public Partido()
     {
         numero = 0;
         nome = "";
-        obs = "";
     }
 
     //
@@ -19,14 +18,14 @@ class Partido
         if(n != 0) this.numero = n;
     }
 
+    public void setNumPrev(int n)
+    {
+        if(n != 0) this.num_prev = n;
+    }
+
     public void setNome(String nome)
     {
         this.nome = nome;
-    }
-
-    public void setObs(String obs)
-    {
-        this.obs = obs;
     }
 
     //
@@ -36,13 +35,13 @@ class Partido
         return this.numero;
     }
 
+    public int getNumPrev()
+    {
+        return this.num_prev;
+    }
+
     public String getNome()
     {
         return this.nome;
-    }
-
-    public String getObs()
-    {
-        return this.obs;
     }
 }

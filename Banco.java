@@ -13,7 +13,6 @@ public class Banco {
 	private String sql;
 	
 	// Manipulação de tabelas e dados
-	private String mat, nome;
 	private PreparedStatement ps;
 	private ResultSet rs;
 	
@@ -24,6 +23,10 @@ public class Banco {
 		senha="postgres";
 		driver="org.postgresql.Driver";
 		sql=""; // string para armazenar comandos sql
+
+		candidato = new Candidato();
+		partido = new Partido();
+		voto = new Voto();
 	}
 	
 	public void conectar()
@@ -84,13 +87,12 @@ public class Banco {
     }
 
     public void inserirPartido() {
-		sql = "INSERT INTO urna.partido VALUES(?, ?, ?)";
+		sql = "INSERT INTO urna.partido VALUES(?, ?)";
         
         try {
             ps = con.prepareStatement(sql);// numero, nome, obs
             ps.setInt(1, partido.getNumero());
             ps.setString(2, partido.getNome());
-            ps.setString(3, partido.getObs());
             ps.execute();
             ps.close();
         }
@@ -125,14 +127,16 @@ public class Banco {
 
     // MÉTODOS DE ALTERAÇÃO NO BANCO --------------------------------------------------
     public void alterarCandidato(){
-		sql = "UPDATE urna.candidato SET n_partido = ?, nome = ?, cargo = ? WHERE numero = ?";
+		sql = "UPDATE urna.candidato SET numero = ?, n_partido = ?, nome = ?, cargo = ? WHERE numero = ?";
         
         try {
+			int i = 1;
             ps = con.prepareStatement(sql);// n_partido, nome, cargo, numero
-            ps.setInt(1, candidato.getN_Partido());
-            ps.setString(2, candidato.getNome());
-            ps.setInt(3, candidato.getCargo());
-            ps.setInt(4, candidato.getNumero());
+            ps.setInt(i++, candidato.getNumero());
+            ps.setInt(i++, candidato.getN_Partido());
+            ps.setString(i++, candidato.getNome());
+            ps.setInt(i++, candidato.getCargo());
+            ps.setInt(i++, candidato.getNumPrev());
             ps.execute();
             ps.close();
         }
@@ -143,20 +147,20 @@ public class Banco {
 	}
     
     public void alterarPartido(){
-		sql = "UPDATE urna.partido SET nome = ?, obs = ? WHERE numero = ?";
+		sql = "UPDATE urna.partido SET numero = ?, nome = ? WHERE numero = ?";
         
         try {
-            ps = con.prepareStatement(sql);// nome, obs, numero 
-            ps.setString(1, partido.getNome());
-            ps.setString(2, partido.getObs());
-            ps.setInt(3, partido.getNumero());
+			ps = con.prepareStatement(sql);// nome, numero 
+			ps.setInt(1, partido.getNumero());
+            ps.setString(2, partido.getNome());
+            ps.setInt(3, partido.getNumPrev());
             ps.execute();
             ps.close();
         }
         catch(Exception e)
         {
             JOptionPane.showMessageDialog(null,"Erro ao alterar partido "+partido.getNome()+": " + e.getMessage());
-        }
+		}
     }
     
     
@@ -220,11 +224,11 @@ public class Banco {
 				candidato.setN_Partido(rs.getInt("n_partido"));
 				candidato.setNome(rs.getString("nome"));
 				candidato.setCargo(rs.getInt("cargo"));
-				
+
                 dados.add(candidato.getNumero());
                 dados.add(candidato.getN_Partido());
                 dados.add(candidato.getNome());
-                dados.add(candidato.getCargoString());
+                dados.add(candidato.getCargo());
 			}
 			
 			ps.close();
@@ -247,14 +251,12 @@ public class Banco {
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery(); // tabela de dados retornada pelo banco (result set)
 			
-			while(rs.next()){// numero, nome, obs
+			while(rs.next()){// numero, nome
 				partido.setNumero(rs.getInt("numero"));
 				partido.setNome(rs.getString("nome"));
-				partido.setObs(rs.getString("obs"));
 				
                 dados.add(partido.getNumero());
                 dados.add(partido.getNome());
-                dados.add(partido.getObs());
 			}
 			
 			ps.close();
@@ -310,7 +312,7 @@ public class Banco {
 			if(rs.next())// numero, n_partido, nome, cargo
 			{
 				volta = true;
-				
+
 				candidato.setNumero(rs.getInt("numero"));
 				candidato.setN_Partido(rs.getInt("n_partido"));
 				candidato.setNome(rs.getString("nome"));
@@ -321,7 +323,7 @@ public class Banco {
 		}
 		catch(Exception e)
 		{
-			JOptionPane.showMessageDialog(null,"Erro em procurar PK "+pk+" de candidato: " + e.getMessage());
+			JOptionPane.showMessageDialog(null,"Erro em procurar PK "+pk+" de candidato: " + e);
 		}
 		
 		return volta;
@@ -337,13 +339,12 @@ public class Banco {
 			
 			rs = ps.executeQuery();
 			
-			if(rs.next())// numero, nome, obs
+			if(rs.next())// numero, nome
 			{
 				volta = true;
 				
 				partido.setNumero(rs.getInt("numero"));
 				partido.setNome(rs.getString("nome"));
-				partido.setObs(rs.getString("obs"));
 			}
 			
 			ps.close();
