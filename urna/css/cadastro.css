@@ -1,0 +1,52 @@
+body {
+    width: 100%;
+    display: flex;
+}
+
+.cadcontent {
+    width: 40%;
+    margin: auto;
+    display: grid;
+
+    grid-template-rows: auto;
+    grid-template-columns: none;
+}
+
+.tab {
+    text-align: center;
+}
+
+.tab h3 {
+    font-size: 1em;
+    font-weight: normal;
+}
+
+.form {
+    padding: 10px;
+    box-sizing: border-box;
+    background: rgba(0, 38, 255, 0.116);
+    border-radius: 5px;
+    display: flex;
+}
+
+form {
+    width: 95%;
+    margin: auto;
+}
+
+label {
+    display: block;
+    margin: 0;
+    font-size: 0.9em;
+    padding-bottom: 5px;
+}
+
+input[type="text"] {
+    font-size: 1.1em;
+    width: 100%;
+}
+
+input[type="number"] {
+    font-size: 1.1em;
+    /* width: auto; */
+}
