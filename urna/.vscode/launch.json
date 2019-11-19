@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Banco",
+            "request": "launch",
+            "mainClass": "Banco",
+            "projectName": "urna_5ae62a80"
+        }
+    ]
+}

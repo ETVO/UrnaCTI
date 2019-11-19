@@ -12,7 +12,7 @@ html, body {
 
 .dropdownmenu {
     margin-top: 0;
-    margin: auto;
+	margin: auto;
 }
 
 .dropdownmenu ul, .dropdownmenu li {
@@ -44,6 +44,11 @@ html, body {
 .dropdownmenu li:hover a {
     background: rgb(0, 23, 85);
 }
+
+.dropdownmenu li a:focus {
+    background: rgb(0, 23, 85);
+}
+
 #submenu {
     font-weight: normal;
 	left: 0;
