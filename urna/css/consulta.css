@@ -1,0 +1,72 @@
+body {
+    width: 100%;
+    display: flex;
+}
+
+.concontent {
+    /* background: rgba(0, 34, 128, 1);
+    color: white;
+    */
+    background: white;
+    color: black;
+    border: solid 1px rgb(0, 18, 66);
+    width: 35%;
+    margin: auto;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: none;
+    border-radius: 10px;
+}
+
+.tab {
+    text-align: center;
+}
+
+.tab h3 {
+    /* font-size: 1em; */
+    margin-bottom:0;
+    margin-top: 20px;
+}
+
+.table {
+    padding-top: 10px;
+    border-radius: 5px;
+    display: flex;
+}
+
+table {
+	/* font-size: 0.9em; */
+	background: #fff;
+	margin: auto;
+	border-collapse: collapse;
+	width: 95%;
+    border: solid 1px rgba(0, 0, 0, 0.17);
+}
+
+table tr:nth-child(even){
+	background: #f1f1f1;
+}
+
+table th, td {
+    text-align: left;
+    padding: 10px;
+}
+
+table th {
+    /* font-weight: normal; */
+    font-size: 0.9em;
+}
+
+table td {
+	max-width: 110px;
+	/* font-weight: bold; */
+	word-wrap: break-word;
+}
+
+table td.d {
+    font-size: 0.9em;
+}
+
+.throw {
+    border-bottom: solid 1px rgba(0, 0, 0, 0.17);
+}

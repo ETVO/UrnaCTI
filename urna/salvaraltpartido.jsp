@@ -20,41 +20,53 @@
     <body>
     <%
         String numero = request.getParameter("numero");
+        String numprev = request.getParameter("numprev");
         String nome = request.getParameter("nome");
         
         Banco banco = new Banco();
         Partido partido = new Partido();
 
         partido.setNumero(Integer.parseInt(numero));
+        partido.setNumPrev(Integer.parseInt(numprev));
         partido.setNome(nome);
 
         String classe = "ok";
         String h2 = "Parabéns!";
-        String h3 = "Partido <b>" + partido.getNome() + "</b> inserido com sucesso!";
+        String h3 = "Partido <b>" + partido.getNome() + "</b> alterado com sucesso!";
 
         banco.setPartido(partido);
 
-        banco.conectar();
-        boolean existe = banco.procuraPartido(Integer.parseInt(numero));
-        banco.desconectar();
-        if(existe == true)
+        if(partido.getNumero() != partido.getNumPrev())
         {
-            classe = "failed";
-            h2 = "Falha!";
-            h3 = "O número <b>" + partido.getNumero() + "</b> já está cadastrado pelo partido <b>" + partido.getNome() + "</b>!";
+            banco.conectar();
+            boolean existe = banco.procuraPartido(partido.getNumero());
+            banco.desconectar();
+            if(existe == true)
+            {
+                classe = "failed";
+                h2 = "Falha!";
+                h3 = "O número <b>" + partido.getNumero() + "</b> já está cadastrado pelo partido <b>" + banco.getPartido().getNome() + "</b>!";
+            }   
+            else
+            {
+                banco.conectar();
+                banco.alterarPartido();
+                banco.desconectar();  
+            } 
         }
         else
         {
             banco.conectar();
-            banco.inserirPartido();
-            banco.desconectar();
+            banco.alterarPartido();
+            banco.desconectar();    
         }
     %>
 
         <div class="<%out.print(classe);%>">
             <h2><%out.print(h2);%></h2>
             <h3><%out.print(h3);%></h3>
-            <a href='cadpartido.html'>Voltar à inclusão de partidos</a>
+            <a href='optpartido.jsp'>Voltar a Alterar/Excluir</a><br>
+            <a href='conpartido.jsp'>Voltar a Consultar</a>
         </div>
     </body>
 </html>

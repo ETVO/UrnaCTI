@@ -21,34 +21,12 @@ body, html {
     color: white;
 }
 
-/* input {
-    font-size: 1.2em;
-    background: none;
-	box-sizing: border-box;
-	-webkit-box-shadow: inset 0px 10px 7px -8px rgba(0, 0, 0, 0.2);
-	-moz-box-shadow: inset 0px 10px 7px -8px rgba(0, 0, 0, 0.2);
-	box-shadow: inset 0px 10px 7px -8px rgba(0, 0, 0, 0.2);
-    border: solid 1px rgba(255, 255, 255, 0.8);
-    padding: 2px;
-    color: white;
-    border-radius: 3px;
+select:focus {
+    border: solid 1px rgba(0, 44, 167, 0.7);
 }
 
-input[type="submit"] {
-    border: solid 1px rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    font-size: 1em;
-    font-weight: bold;
-}
-
-input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:focus {
-    background: white;
-    color: rgba(0, 34, 128, 1);
-    cursor: pointer;
-} */
-
-input {
-    font-size: 1.2em;
+input, select {
+    font-size: 1.1em;
     background: none;
 	box-sizing: border-box;
 	-webkit-box-shadow: inset 0px 10px 7px -8px rgba(0, 0, 0, 0.2);
@@ -58,6 +36,10 @@ input {
     padding: 2px;
     color: black;
     border-radius: 3px;
+}
+
+option {
+    font-size: 0.9em;
 }
 
 input[type="submit"] {
@@ -72,6 +54,23 @@ input[type="submit"] {
 
 input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:focus {
     background: rgb(0, 44, 167);
+    cursor: pointer;
+}
+
+input[type="submit"].danger {
+    background: rgb(163, 19, 0);
+    border: solid 1px rgb(82, 3, 0);
+    padding: 10px;
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    border-radius: 5px;
+}
+
+input[type="submit"].danger:hover, 
+input[type="submit"].danger:active, 
+input[type="submit"].danger:focus {
+    background: rgb(206, 24, 0);
     cursor: pointer;
 }
 
@@ -105,3 +104,35 @@ a:hover, a:focus {
     text-decoration: underline;
     outline: none;
 }
+
+a.danger {
+    color: rgb(163, 19, 0);
+    text-decoration: none;
+}
+
+a.danger:hover, a.danger:focus {
+    color: rgb(206, 24, 0);
+    text-decoration: underline;
+    outline: none;
+}
+
+#reminder {
+    color: rgb(168, 48, 0);
+}
+
+#imprimir {
+    display: block;
+    font-size: 0.9em;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.flex {
+    display: flex;
+    width: 100%;
+}
+
+.mauto {
+    margin: auto;
+}
+

@@ -235,7 +235,7 @@ public class Banco {
                 dados.add(candidato.getNumero());
                 dados.add(candidato.getN_Partido());
                 dados.add(candidato.getNome());
-                dados.add(candidato.getCargo());
+                dados.add(candidato.getCargoString());
 			}
 			
 			ps.close();

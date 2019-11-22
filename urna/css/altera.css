@@ -1,0 +1,73 @@
+body {
+    width: 100%;
+    display: flex;
+}
+
+.altcontent {
+    /* background: rgba(0, 34, 128, 1);
+    color: white;
+    */
+    background: white;
+    color: black;
+    border: solid 1px rgb(0, 18, 66);
+    width: 35%;
+    margin: auto;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: none;
+    border-radius: 10px;
+}
+
+.tab {
+    text-align: center;
+}
+
+.tab h3 {
+    /* font-size: 1em; */
+    margin-bottom:0;
+    margin-top: 20px;
+}
+
+.form {
+    border-radius: 5px;
+    display: flex;
+}
+
+form {
+    width: 100%;
+    margin: auto;
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+label {
+    display: block;
+    margin: 0;
+    font-size: 0.9em;
+    padding-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 60%;
+}
+
+input[name="nome"] {
+    width: 80%;
+}
+
+input[type="submit"]  {
+    /* display: block; */
+    margin: auto;
+    margin-right: 0;
+}
+
+.submit {
+    display: flex;
+    width: 100%;
+}
+
+.submitContent {
+    margin: auto;
+    margin-right: 0;
+}
